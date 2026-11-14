@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>LearnNova AI – Personalized Learning Platform</title>
+<style>
+:root{--bg:#f0f7f7;--card:#fff;--tx:#10262b;--mu:#5b7378;--bd:#dbe8ea;--pr:#0d9488;--ok:#16a34a;--wn:#d97706;--er:#dc2626;--sh:0 1px 3px rgba(20,30,60,.08);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0a1a1f;--card:#112a31;--tx:#e6f4f4;--mu:#8fb0b5;--bd:#1f3f47;--pr:#2dd4bf;--sh:none;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0a1a1f;--card:#112a31;--tx:#e6f4f4;--mu:#8fb0b5;--bd:#1f3f47;--pr:#2dd4bf;--sh:none;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{background:var(--card);border-bottom:1px solid var(--bd);padding:12px 20px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+h1{font-size:18px;margin:0}h1 span{color:var(--pr)}h2{font-size:16px;margin:0 0 10px}h3{font-size:14px;margin:0 0 6px}
+nav{display:flex;gap:4px;flex-wrap:wrap;padding:10px 20px}nav button{border:1px solid var(--bd);background:var(--card);color:var(--tx);padding:7px 14px;border-radius:8px;cursor:pointer;font:inherit}
+nav button.on{background:var(--pr);color:#fff;border-color:var(--pr)}
+main{padding:0 20px 30px;max-width:1100px;margin:auto}
+.g{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.c{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:16px;box-shadow:var(--sh)}
+.mu{color:var(--mu);font-size:13px}.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+select,input,textarea{font:inherit;color:var(--tx);background:var(--bg);border:1px solid var(--bd);border-radius:8px;padding:7px 10px}
+textarea{width:100%;min-height:56px}input[type=range]{padding:0;accent-color:var(--pr)}
+.btn{background:var(--pr);color:#fff;border:0;border-radius:8px;padding:8px 14px;cursor:pointer;font:inherit}.btn.sec{background:transparent;color:var(--pr);border:1px solid var(--pr)}
+.big{font-size:34px;font-weight:700;color:var(--pr)}
+.bar{height:8px;background:var(--bd);border-radius:5px;position:relative;overflow:hidden}.bar i{position:absolute;left:0;top:0;bottom:0;background:var(--pr);border-radius:5px}
+.bar b{position:absolute;top:-2px;bottom:-2px;width:2px;background:var(--tx)}
+.tag{display:inline-block;font-size:12px;padding:2px 8px;border-radius:99px;background:var(--bd);margin:2px}.tag.ok{background:#16a34a22;color:var(--ok)}.tag.wn{background:#d9770622;color:var(--wn)}.tag.er{background:#dc262622;color:var(--er)}
+.sk{margin:10px 0}.sk .row{justify-content:space-between}
+.step{border-left:3px solid var(--pr);padding-left:12px;margin:14px 0}.res{display:flex;gap:8px;align-items:center;padding:4px 0}
+.log{border-left:3px solid var(--pr);padding:6px 10px;margin:8px 0;background:var(--bg);border-radius:0 8px 8px 0}.log b{font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--pr)}
+.chat{max-height:220px;overflow:auto;margin:8px 0}.msg{padding:6px 10px;margin:4px 0;border-radius:8px;background:var(--bg)}.msg.u{background:var(--pr);color:#fff;margin-left:30px}
+.q{margin:12px 0}.q label{display:block;padding:3px 0}
+header{background:linear-gradient(135deg,#0f766e,#0891b2)!important;color:#fff;border:0!important}header h1 span,header .mu{color:#ccfbf1!important}
+#goal,#tg{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.35)}#goal option{color:#000}
+main{animation:fi .35s ease}@keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+.c{transition:transform .2s,box-shadow .2s}.c:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(13,148,136,.18)}
+.bar i{transition:width .8s ease}
+button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--pr);outline-offset:2px}
+.badge{display:inline-flex;gap:6px;align-items:center;padding:6px 10px;border:1px solid var(--bd);border-radius:10px;margin:3px;font-size:13px}.badge.off{opacity:.4;filter:grayscale(1)}
+#toast{position:fixed;right:16px;top:calc(env(safe-area-inset-top,0px) + 16px);max-width:320px;background:var(--card);border:1px solid var(--pr);border-left:4px solid var(--pr);padding:12px 14px;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.25);transform:translateX(120%);transition:transform .35s;z-index:20;font-size:14px}#toast.on{transform:none}
+.typing span{display:inline-block;width:6px;height:6px;margin:0 2px;border-radius:50%;background:var(--mu);animation:bl 1s infinite}.typing span:nth-child(2){animation-delay:.2s}.typing span:nth-child(3){animation-delay:.4s}@keyframes bl{50%{opacity:.2}}
+.xp{height:10px}.hero{text-align:center;padding:30px 10px}.hero h2{font-size:22px}
+@media(max-width:640px){nav{position:fixed;bottom:0;left:0;right:0;z-index:15;background:var(--card);border-top:1px solid var(--bd);justify-content:space-around;padding:8px 6px calc(8px + env(safe-area-inset-bottom,0px))}nav button{padding:6px 8px;font-size:12px;border:0}main{padding-bottom:90px}}
+
+:root{--bg:#0c0a1d!important;--card:rgba(255,255,255,.06)!important;--tx:#f4f1ff!important;--mu:#a9a3c9!important;--bd:rgba(255,255,255,.12)!important;--pr:#fb7185!important;--ok:#34d399!important;color-scheme:dark!important}
+body{font-family:Poppins,system-ui,sans-serif;background:radial-gradient(900px 500px at 85% -10%,#7c3aed55,transparent),radial-gradient(700px 500px at -10% 110%,#fb718544,transparent),#0c0a1d;background-attachment:fixed}
+header{margin-left:230px;background:transparent!important;border:0!important}
+header h1{font-size:20px}header h1 span{background:linear-gradient(90deg,#fb7185,#f59e0b);-webkit-background-clip:text;background-clip:text;color:transparent!important}
+nav{position:fixed;left:0;top:0;bottom:0;width:230px;flex-direction:column;padding:90px 14px 14px;background:rgba(255,255,255,.04);border-right:1px solid var(--bd);backdrop-filter:blur(14px);z-index:15;border-top:0}
+nav::before{content:"\25C6  LearnNova AI";position:absolute;top:28px;left:22px;font-weight:700;font-size:18px;background:linear-gradient(90deg,#fb7185,#f59e0b);-webkit-background-clip:text;background-clip:text;color:transparent}
+nav button{text-align:left;padding:12px 14px;border:0;background:transparent;border-radius:12px;color:var(--mu);font-size:14px}
+nav button.on{background:linear-gradient(135deg,#fb7185,#f59e0b);color:#1a1033;font-weight:600}
+main{margin-left:230px;max-width:none;padding:0 28px 40px}footer{margin-left:230px}
+.c{background:var(--card);backdrop-filter:blur(12px);border-radius:20px;padding:20px}
+.btn{background:linear-gradient(135deg,#fb7185,#f59e0b);color:#1a1033;font-weight:600;border-radius:12px}.btn.sec{background:transparent;color:var(--pr);border:1px solid var(--pr)}
+.big{background:linear-gradient(90deg,#fb7185,#f59e0b);-webkit-background-clip:text;background-clip:text;color:transparent}
+.bar i{background:linear-gradient(90deg,#fb7185,#f59e0b)}
+#tg{display:none}#goal{background:rgba(255,255,255,.08)}
+select option{color:#000}
+@media(max-width:900px){nav{top:auto;width:auto;right:0;flex-direction:row;padding:8px 6px calc(8px + env(safe-area-inset-bottom,0px));border-right:0;border-top:1px solid var(--bd);background:#14102b}nav::before{display:none}header,main,footer{margin-left:0}nav button{padding:8px 6px;font-size:12px;text-align:center;flex:1}main{padding-bottom:90px}}
+</style><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head><body>
+<header><h1>Learn<span>Nova</span> AI · Adaptive Learning Platform</h1>
+<div class="row"><span class="mu">Career goal</span><select id="goal"></select><button class="btn" id="tg" onclick="theme()" aria-label="Toggle light or dark theme">🌓</button></div></header>
+<div id="toast" role="status" aria-live="polite"></div><nav id="nav"></nav><main id="v"></main>
+<footer style="text-align:center;padding:18px;color:var(--mu);font-size:12px">LearnNova AI · Multi-agent adaptive learning · Data stays in your browser</footer>
+<script>
+const S={HTML:{p:[],proj:"personal portfolio page",q:[["Which tag wraps the main navigation links?",["&lt;nav&gt;","&lt;links&gt;","&lt;go&gt;"],0],["Which attribute provides alternative text for an image?",["title","alt","src"],1]]},
+CSS:{p:["HTML"],proj:"responsive landing page",q:[["Which property sets space outside an element border?",["padding","margin","gap"],1],["Which display value enables flexbox?",["flex","table","inline"],0]]},
+JavaScript:{p:["HTML"],proj:"interactive to-do app",q:[["What does === compare?",["Value only","Value and type","Memory address only"],1],["Which method returns a new transformed array?",["forEach","map","push"],1]]},
+React:{p:["JavaScript"],proj:"weather dashboard with hooks",q:[["Which hook stores component state?",["useState","useFetch","useDom"],0],["What do list items rendered with map need?",["A unique key","A class name","An onClick"],0]]},
+"Node.js":{p:["JavaScript"],proj:"CRUD REST server with Express",q:[["Node.js runs JavaScript on…",["the server using V8","only the browser","a database engine"],0],["Which command installs a package?",["npm install","node get","npx remove"],0]]},
+"REST APIs":{p:[],proj:"notes API with auth",q:[["Which HTTP method creates a resource?",["GET","POST","HEAD"],1],["Status code for a missing resource?",["200","404","500"],1]]},
+SQL:{p:[],proj:"library database with joins",q:[["Which clause filters rows?",["WHERE","ORDER BY","LIMIT"],0],["Which join returns only matching rows from both tables?",["INNER JOIN","LEFT JOIN","CROSS JOIN"],0]]},
+MongoDB:{p:[],proj:"blog backend with collections",q:[["MongoDB stores data as…",["rows","documents","cells"],1],["Which method inserts one document?",["insertOne","addRow","putOne"],0]]},
+Git:{p:[],proj:"feature-branch workflow on a repo",q:[["Command that records staged changes?",["git commit","git push","git clone"],0],["Command that creates a branch?",["git branch name","git fork name","git new name"],0]]},
+Python:{p:[],proj:"data-cleaning script",q:[["Which type is ordered and mutable?",["tuple","list","frozenset"],1],["Keyword to define a function?",["func","def","fn"],1]]},
+TypeScript:{p:["JavaScript"],proj:"typed utility library"},Linux:{p:[],proj:"shell automation scripts"},Docker:{p:["Linux"],proj:"containerized web app"},
+"CI/CD":{p:["Git","Linux"],proj:"GitHub Actions pipeline"},Statistics:{p:[],proj:"A/B test analysis"},"Machine Learning":{p:["Python","Statistics"],proj:"house price predictor"}};
+const R={"Full Stack Developer":{HTML:3,CSS:3,JavaScript:4,Git:3,React:4,"Node.js":4,"REST APIs":3,SQL:3,MongoDB:3},
+"Frontend Developer":{HTML:4,CSS:4,JavaScript:4,React:4,TypeScript:3,Git:3},
+"Backend Developer":{Python:4,SQL:4,"REST APIs":4,"Node.js":3,Docker:3,Git:3},
+"Data Scientist":{Python:4,SQL:3,Statistics:4,"Machine Learning":4,Git:2},
+"DevOps Engineer":{Linux:4,Git:3,Docker:4,"CI/CD":4,Python:3}};
+const KEY="skillpath_v1";let st=load()||fresh(),tab="dash",quiz=null,chat=[];
+function fresh(){return{name:"",skills:{},certs:"",projects:"",goal:"Full Stack Developer",prog:{},boost:{},log:[],hist:[]}}
+function load(){try{return JSON.parse(localStorage.getItem(KEY))}catch(e){return null}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}}
+const lv=s=>st.skills[s]||0, pg=s=>st.prog[s]||(st.prog[s]={done:[],rem:0,score:null});
+function log(a,m){st.log.unshift({a,m,t:new Date().toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"})});st.log=st.log.slice(0,60)}
+/* ---------- Agent toolbox ---------- */
+function plan(){const out={};
+ const add=(s,r,pre)=>{S[s].p.forEach(p=>{if(lv(p)<2)add(p,2,true)});if(!out[s]||out[s].req<r)out[s]={s,req:r,cur:lv(s),pre:pre&&!R[st.goal][s]}};
+ Object.entries(R[st.goal]).forEach(([s,r])=>{if(lv(s)<r)add(s,r,false)});
+ Object.entries(st.boost).forEach(([s,r])=>{if(lv(s)<r)add(s,r,true)});
+ return Object.values(out)}
+function res(s){const b=[{t:"course",n:`${s}: structured course (beginner to job-ready)`,h:8},{t:"tutorial",n:`${s}: guided hands-on tutorial series`,h:3},{t:"exercise",n:`Practice project: ${S[s].proj}`,h:5}];
+ for(let i=0;i<pg(s).rem;i++)b.push({t:"remedial",n:i?`${s}: 15 targeted drills (round ${i+1})`:`${s}: concept revision with worked examples`,h:3});return b}
+const doneAll=s=>res(s).every((_,i)=>pg(s).done.includes(i));
+const hoursLeft=p=>p.reduce((a,x)=>a+res(x.s).reduce((b,r,i)=>b+(pg(x.s).done.includes(i)?0:r.h),0),0);
+function match(){const r=R[st.goal],t=Object.values(r).reduce((a,b)=>a+b,0);return Math.round(Object.entries(r).reduce((a,[s,v])=>a+Math.min(lv(s),v),0)/t*100)}
+function status(x){const p=pg(x.s);if(p.score!==null&&p.score<60&&!doneAll(x.s))return["Needs revision","er"];if(p.done.length)return["In progress","wn"];return["Not started",""]}
+/* ---------- Multi-agent orchestration ---------- */
+function orchestrate(ev,ctx){
+ const have=Object.entries(st.skills).filter(([,v])=>v>0);
+ log("Profile Agent",`${ev==="goal"?"Goal updated":"Profile synced"}: ${st.name||"Learner"} has ${have.length} skills, ${st.certs?"certifications on file, ":""}target role is ${st.goal}.`);
+ const strong=have.filter(([,v])=>v>=3).map(([s])=>s),r=R[st.goal],gaps=plan();
+ log("Skill Analyst",`Strengths: ${strong.join(", ")||"none yet"}. Gaps vs requirements: ${gaps.filter(g=>!g.pre).map(g=>`${g.s} (${g.cur}→${g.req})`).join(", ")||"none"}.`);
+ const pre=gaps.filter(g=>g.pre).map(g=>g.s);
+ log("Career Matcher",`Match for ${st.goal}: ${match()}%.${pre.length?` Hidden prerequisites detected: ${pre.join(", ")}.`:""}`);
+ log("Resource Curator",`Built roadmap of ${gaps.length} skills, about ${hoursLeft(gaps)}h of courses, tutorials and practice projects, ordered by prerequisites.`);
+ if(ev==="assess"){const{s,score}=ctx;
+  log("Progress Evaluator",`${s} assessment: ${score}%. ${score>=60?"Passed, competency updated.":"Below the 60% threshold, flagged weak."}`);
+  if(score<60){const pr=S[s].p.find(p=>lv(p)<4);pg(s).rem++;if(pr){st.boost[pr]=Math.min(5,lv(pr)+1);pg(pr).rem++;}
+   log("Resource Curator",`Replanned: added revision for ${s}${pr?` and re-queued prerequisite ${pr}`:""}.`);
+   log("AI Mentor",`Don’t worry, ${s} is hard at first. I added concept revision${pr?` and a refresher on ${pr}, the foundation it builds on`:""}. Finish those, then retake the test.`)}
+  else log("AI Mentor",`Great work on ${s}! ${score>=90?"Excellent score, you can move faster.":"Solid pass."} Next up: ${(plan()[0]||{}).s||"you are ready to apply for roles!"}.`)}
+ else if(ev==="goal")log("AI Mentor",`Roadmap rebuilt for ${st.goal}. Skills you already have carry over, so I only kept what is still missing.`);
+ else log("AI Mentor",gaps[0]?`Start with ${gaps[0].s}. It unlocks the rest of your roadmap.`:"You meet all requirements for this role. Time to build a portfolio!");
+ save();}
+function mentorReply(q){q=q.toLowerCase();const p=plan(),n=p.find(x=>!doneAll(x.s))||p[0];
+ if(!p.length)return`You already meet every requirement for ${st.goal}. Consider a stretch role from the goal menu.`;
+ if(/next|start|what should/.test(q))return`Focus on ${n.s}: ${res(n.s).find((_,i)=>!pg(n.s).done.includes(i))?.n||"take its assessment"}.`;
+ if(/weak|struggl|fail/.test(q)){const w=p.filter(x=>pg(x.s).score!==null&&pg(x.s).score<60).map(x=>x.s);return w.length?`Weak areas: ${w.join(", ")}. Complete the remedial items, then retake.`:`No weak areas recorded yet. Take an assessment to find out.`}
+ if(/time|long|hour|week/.test(q))return`About ${hoursLeft(p)} hours remain, roughly ${Math.ceil(hoursLeft(p)/6)} weeks at 6 hours per week.`;
+ if(/match|ready|chance/.test(q))return`You match ${match()}% of ${st.goal} requirements.`;
+ return`Try asking: “what should I do next?”, “how long will it take?”, “where am I weak?” or “am I ready?”.`}
+/* ---------- UI ---------- */
+const TABS=[["dash","📊 Dashboard"],["profile","👤 Profile"],["road","🗺️ Roadmap"],["assess","📝 Assessment"],["agents","🤖 Agents"]];
+function nav(){$("#nav").innerHTML=TABS.map(([k,l])=>`<button class="${k===tab?"on":""}" onclick="go('${k}')">${l}</button>`).join("");
+ $("#goal").innerHTML=Object.keys(R).map(r=>`<option ${r===st.goal?"selected":""}>${r}</option>`).join("")}
+const $=s=>document.querySelector(s);
+function go(t){tab=t;render()}
+$("#goal").onchange=e=>{st.goal=e.target.value;st.boost={};orchestrate("goal");render()};
+function bar(cur,req){return`<div class="bar"><i style="width:${cur/5*100}%;${cur>=req?"background:var(--ok)":""}"></i><b style="left:${req/5*100}%"></b></div>`}
+let lastM="";function render(){nav();({dash,profile,road,assess,agents})[tab]();const m=st.log.find(l=>l.a==="AI Mentor");if(m&&m.m!==lastM){if(lastM)toast("🎓 Mentor: "+m.m);lastM=m.m}}
+function dash(){const p=plan(),m=match(),all=Object.keys(R[st.goal]);
+ const tot=p.reduce((a,x)=>a+res(x.s).length,0),dn=p.reduce((a,x)=>a+pg(x.s).done.length,0);
+ $("#v").innerHTML=`<div class="g">
+ ${Object.values(st.skills).some(v=>v)?"":`<div class="c hero" style="grid-column:1/-1"><h2>Welcome to LearnNova AI 👋</h2><p class="mu">Tell us what you know and where you want to go. Six AI agents will build your personal roadmap.</p><button class="btn" onclick="demo()">Try the sample scenario</button> <button class="btn sec" onclick="go('profile')">Create my profile</button></div>`}
+ <div style="grid-column:1/-1;display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr))">${kpi()}</div>
+ <div class="c"><h2>Career match</h2><div style="text-align:center">${ring(m)}</div><div class="mu" style="text-align:center">${st.goal}</div>
+ <p class="mu">${p.length} skills to learn · ${hoursLeft(p)}h remaining · ${tot?Math.round(dn/tot*100):100}% of roadmap activities done</p>
+ <button class="btn sec" onclick="demo()">Load sample scenario</button></div>
+ <div class="c"><h2>Skill analysis</h2>${all.map(s=>`<div class="sk"><div class="row"><span>${s}</span><span class="mu">${lv(s)} / ${R[st.goal][s]}</span></div>${bar(lv(s),R[st.goal][s])}</div>`).join("")}<div class="mu">Black marker = role requirement</div></div>
+ <div class="c"><h2>AI Mentor</h2><div class="chat" id="chat">${chat.length?chat.map(c=>`<div class="msg ${c.u?"u":""}">${c.m}</div>`).join(""):`<div class="msg">${(st.log.find(l=>l.a==="AI Mentor")||{m:"Hi! Fill in your profile or load the sample scenario to begin."}).m}</div>`}</div>
+ <div class="row"><input id="ci" placeholder="Ask your mentor…" style="flex:1" onkeydown="if(event.key==='Enter')ask()"><button class="btn" onclick="ask()">Send</button></div></div>
+ <div class="c"><h2>Achievements</h2><div class="row" style="justify-content:space-between"><b>Level ${xp().l}</b><span class="mu">${xp().x} XP · ${100-xp().p} XP to next level</span></div><div class="bar xp"><i style="width:${xp().p}%"></i></div><div style="margin-top:10px">${badges()}</div></div>
+ <div class="c"><h2>Skill radar</h2><div style="text-align:center">${radar()}</div><div class="mu">Filled = your level · dashed = role requirement</div></div>
+ <div class="c"><h2>Career explorer</h2>${alt()}<div class="mu">Your current fit across all supported roles. ★ = selected goal.</div></div>
+ <div class="c"><h2>Performance history</h2>${st.hist.length?st.hist.slice().reverse().map(h=>`<div class="row" style="justify-content:space-between"><span>${h.s}</span><span class="tag ${h.score>=60?"ok":"er"}">${h.score}%</span></div>`).join(""):`<p class="mu">No assessments yet. Take one in the Assessment tab.</p>`}</div></div>`}
+function kpi(){const r=Object.entries(R[st.goal]),ms=r.filter(([s,v])=>lv(s)>=v).length,av=st.hist.length?Math.round(st.hist.reduce((a,h)=>a+h.score,0)/st.hist.length)+"%":"–",hl=hoursLeft(plan()),w=Math.ceil(hl/(st.hpw||6));
+return[[ms+"/"+r.length,"Skills mastered"],[av,"Avg assessment score"],[hl+"h","Study time remaining"],[hl?w+" wks":"Done","Est. time to goal"]].map(k=>`<div class="c" style="text-align:center"><div class="big" style="font-size:26px">${k[0]}</div><div class="mu">${k[1]}</div></div>`).join("")}
+function radar(){const k=Object.entries(R[st.goal]),n=k.length,c=130,rad=80;const pt=(i,v)=>{const a=-Math.PI/2+2*Math.PI*i/n;return[(c+Math.cos(a)*rad*v/5).toFixed(1),(c+Math.sin(a)*rad*v/5).toFixed(1)]};
+const poly=f=>k.map(([s,r],i)=>pt(i,f(s,r)).join(",")).join(" ");
+return`<svg viewBox="-10 0 280 260" width="100%" style="max-width:340px">${[1,2,3,4,5].map(g=>`<polygon points="${k.map((_,i)=>pt(i,g).join(",")).join(" ")}" fill="none" stroke="var(--bd)"/>`).join("")}<polygon points="${poly((s,r)=>r)}" fill="none" stroke="var(--tx)" stroke-dasharray="4 3"/><polygon points="${poly(s=>lv(s))}" fill="var(--pr)" fill-opacity=".35" stroke="var(--pr)" stroke-width="2"/>${k.map(([s],i)=>{const p=pt(i,5.9);return`<text x="${p[0]}" y="${p[1]}" font-size="9" text-anchor="middle" fill="var(--mu)">${s}</text>`}).join("")}</svg>`}
+function alt(){return Object.entries(R).map(([g,r])=>{const t=Object.values(r).reduce((a,b)=>a+b,0),m=Math.round(Object.entries(r).reduce((a,[s,v])=>a+Math.min(lv(s),v),0)/t*100);return`<div class="sk"><div class="row"><span>${g}${g===st.goal?" ★":""}</span><span class="mu">${m}%</span></div><div class="bar"><i style="width:${m}%"></i></div></div>`}).join("")}
+function theme(){const d=document.documentElement,c=d.dataset.theme||(matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light");d.dataset.theme=c==="dark"?"light":"dark"}
+let tt;function toast(m){const t=$("#toast");t.textContent=m;t.classList.add("on");clearTimeout(tt);tt=setTimeout(()=>t.classList.remove("on"),4500)}
+function xp(){const x=Object.values(st.prog).reduce((a,p)=>a+p.done.length*10,0)+st.hist.reduce((a,h)=>a+Math.round(h.score/2),0);return{x,l:Math.floor(x/100)+1,p:x%100}}
+function badges(){const x=st.hist,B=[["🚀","First steps",Object.values(st.prog).some(p=>p.done.length)],["🏆","Quiz ace (90%+)",x.some(h=>h.score>=90)],["💪","Comeback",x.some((h,i)=>h.score>=60&&x.slice(0,i).some(o=>o.s===h.s&&o.score<60))],["🎯","Role ready",match()===100],["📚","5 assessments",x.length>=5]];return B.map(b=>`<span class="badge ${b[2]?"":"off"}">${b[0]} ${b[1]}</span>`).join("")}
+function ring(m){const r=42,c=2*Math.PI*r;return`<svg viewBox="0 0 100 100" width="120" height="120"><circle cx="50" cy="50" r="${r}" fill="none" stroke="var(--bd)" stroke-width="9"/><circle cx="50" cy="50" r="${r}" fill="none" stroke="var(--pr)" stroke-width="9" stroke-linecap="round" stroke-dasharray="${c*m/100} ${c}" transform="rotate(-90 50 50)"/><text x="50" y="56" text-anchor="middle" font-size="20" font-weight="700" fill="var(--tx)">${m}%</text></svg>`}
+function ask(){const i=$("#ci"),q=i.value.trim();if(!q)return;chat.push({u:1,m:q.replace(/</g,"&lt;")},{m:'<span class="typing"><span></span><span></span><span></span></span>'});dash();const c=$("#chat");c.scrollTop=c.scrollHeight;setTimeout(()=>{chat[chat.length-1].m=mentorReply(q);if(tab==="dash"){dash();const c2=$("#chat");c2.scrollTop=c2.scrollHeight}},700)}
+function profile(){$("#v").innerHTML=`<div class="c"><h2>Learner profile</h2>
+ <div class="row"><input id="nm" placeholder="Full name" value="${st.name}"></div>
+ <h3 style="margin-top:14px">Current skill levels (0 = none, 5 = expert)</h3><div class="g">${Object.keys(S).map(s=>`<div class="row" style="justify-content:space-between"><span>${s}</span><span class="row"><input type="range" min="0" max="5" value="${lv(s)}" data-s="${s}" oninput="this.nextElementSibling.textContent=this.value"><b>${lv(s)}</b></span></div>`).join("")}</div>
+ <h3 style="margin-top:14px">Certifications</h3><textarea id="ce">${st.certs}</textarea>
+ <h3 style="margin-top:10px">Projects</h3><textarea id="pj">${st.projects}</textarea>
+ <p><button class="btn" onclick="saveProfile()">Save and analyze</button></p></div>`}
+function saveProfile(){st.name=$("#nm").value;st.certs=$("#ce").value;st.projects=$("#pj").value;
+ document.querySelectorAll("[data-s]").forEach(i=>st.skills[i.dataset.s]=+i.value);orchestrate("profile");go("dash")}
+function demo(){st=Object.assign(fresh(),{name:"Sample Student",skills:{Python:3,SQL:3,HTML:2},goal:"Full Stack Developer",projects:"Student marks tracker (Python + SQL)"});orchestrate("profile");render()}
+function pace(p){const h=st.hpw||6;return`<div class="row"><span class="mu">Study pace</span><select onchange="st.hpw=+this.value;save();road()">${[3,6,10,15].map(x=>`<option value="${x}" ${x===h?"selected":""}>${x} h/week</option>`).join("")}</select><span class="mu">Target completion: ${p.length?new Date(Date.now()+Math.ceil(hoursLeft(p)/h)*6048e5).toLocaleDateString(undefined,{day:"numeric",month:"short",year:"numeric"}):"achieved"}</span></div>`}
+function road(){const p=plan(),h=st.hpw||6,wk={};let c=0;p.forEach(x=>{const a=Math.floor(c/h)+1;c+=res(x.s).reduce((b,r,i)=>b+(pg(x.s).done.includes(i)?0:r.h),0);wk[x.s]=[a,Math.max(a,Math.ceil(c/h))]});$("#v").innerHTML=`<div class="c"><h2>Personalized roadmap: ${st.goal}</h2>${pace(p)}<p class="mu">Ordered by prerequisites with a week-by-week schedule. Mark resources complete as you learn.</p>
+ ${p.length?p.map((x,k)=>{const[sl,sc]=status(x);return`<div class="step"><div class="row" style="justify-content:space-between"><h3>${k+1}. ${x.s} <span class="mu">level ${x.cur} → ${x.req} · Week ${wk[x.s][0]}–${wk[x.s][1]}</span></h3><span><span class="tag ${sc}">${sl}</span>${x.pre?`<span class="tag">prerequisite</span>`:""}</span></div>
+ ${res(x.s).map((r,i)=>`<label class="res"><input type="checkbox" ${pg(x.s).done.includes(i)?"checked":""} onchange="tick('${x.s}',${i})"><span>${r.n} <span class="tag ${r.t==="remedial"?"er":""}">${r.t}</span> <span class="mu">${r.h}h</span></span></label>`).join("")}
+ <div class="bar" style="margin:6px 0 10px"><i style="width:${pg(x.s).done.length/res(x.s).length*100}%"></i></div>${doneAll(x.s)?`<button class="btn" onclick="startQ('${x.s}')">Take assessment</button>`:""}</div>`}).join(""):`<p>🎉 All requirements met for ${st.goal}.</p>`}</div>`}
+function tick(s,i){const d=pg(s).done,k=d.indexOf(i);k<0?d.push(i):d.splice(k,1);save();road()}
+function assess(){const p=plan();$("#v").innerHTML=`<div class="c"><h2>Assessment</h2>${quiz?quizHTML():`<p class="mu">Choose a skill to test. Scores below 60% trigger an adaptive replan.</p><div class="row">${p.length?p.map(x=>`<button class="btn sec" onclick="startQ('${x.s}')">${x.s}</button>`).join(""):"No pending skills."}</div>`}</div>`}
+function startQ(s){const q=S[s].q||[[`Can you complete the practice project “${S[s].proj}” without a tutorial?`,["Yes, without help","With some help","No"],-1],[`Can you explain core ${s} concepts to a teammate?`,["Yes, clearly","Partly","No"],-1]];quiz={s,q};tab="assess";render()}
+function quizHTML(){return`<h3>${quiz.s}</h3>${quiz.q.map((q,i)=>`<div class="q"><b>${i+1}. ${q[0]}</b>${q[1].map((o,j)=>`<label><input type="radio" name="q${i}" value="${j}"> ${o}</label>`).join("")}</div>`).join("")}
+ <button class="btn" onclick="submitQ()">Submit</button> <button class="btn sec" onclick="submitQ(0)">Demo: simulate poor score</button> <button class="btn sec" onclick="quiz=null;assess()">Cancel</button>`}
+function submitQ(force){const{s,q}=quiz;let pts=0;q.forEach((x,i)=>{const v=document.querySelector(`[name=q${i}]:checked`);if(!v)return;const j=+v.value;pts+=x[2]>=0?(j===x[2]?1:0):[1,.5,0][j]});
+ const score=force===0?30:Math.round(pts/q.length*100);st.hist.push({s,score});
+ if(score>=60){const r=plan().find(x=>x.s===s);st.skills[s]=Math.max(lv(s),r?r.req:lv(s));pg(s).score=score;delete st.boost[s]}else pg(s).score=score;
+ quiz=null;orchestrate("assess",{s,score});go("dash")}
+function agents(){const A=[["Profile Agent","Maintains learner data"],["Skill Analyst","Finds strengths and gaps"],["Career Matcher","Scores fit to target role"],["Resource Curator","Builds and adapts the roadmap"],["Progress Evaluator","Grades assessments"],["AI Mentor","Guides and motivates"]];
+ $("#v").innerHTML=`<div class="g"><div class="c"><h2>Agent team</h2>${A.map(a=>`<p><b>${a[0]}</b><br><span class="mu">${a[1]}</span></p>`).join("")}<h3>Orchestration pipeline</h3><div class="row">${["Profile","Analyst","Matcher","Curator","Evaluator","Mentor"].map(a=>`<span class="tag" style="padding:4px 10px">${a}</span>`).join("→")}</div><p class="mu">Triggered by every profile change, goal switch or assessment. A score below 60% creates a feedback loop: Evaluator → Curator (replan) → Mentor (guidance).</p></div>
+ <div class="c" style="grid-column:span 2;min-width:0"><h2>Collaboration log</h2>${st.log.length?st.log.map(l=>`<div class="log"><b>${l.a}</b> <span class="mu">${l.t}</span><div>${l.m}</div></div>`).join(""):`<p class="mu">No activity yet.</p>`}
+ <button class="btn sec" onclick="if(confirm('Reset all data?')){st=fresh();save();render()}">Reset data</button></div></div>`}
+render();
+</script></body></html>
